@@ -1,6 +1,6 @@
 console.log("welcome")
 
-let queryParem = {
+let queryParam = {
     launch_year:'',
     launch_success:'',
     land_success:'',
@@ -10,6 +10,7 @@ let queryParem = {
 
 
 function getData() {
+
     let dataLen = $(".spacex-item").length;
     if (dataLen == 0) {
         $('.loadmore-btn').hide();
@@ -19,7 +20,7 @@ function getData() {
     $.ajax({
         url: 'https://api.spacexdata.com/v3/launches?',
         method : 'GET',
-        data: queryParem,
+        data: queryParam,
         dataType: "json",
         success: function (response) {
 
@@ -29,7 +30,7 @@ function getData() {
 
             $('.loadmore-btn').show()
             $('.loadmore-btn').html('').text('Load More')
-            $('.loading').hide();
+            // $('.loading').hide();
         },
         error: function (error) {
             console.log(error);
@@ -45,15 +46,13 @@ $(document).ready(function(){
 // function for load more data 
 function loadmore() {
     $('.loadmore-btn').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span class="sr-only">Loading...</span> Loading')
-    queryParem.offset += 20 
-    queryParem.limit = 20 
+    queryParam.offset += 20 
+    queryParam.limit = 20 
     getData();
 }
 
 // append data dynamically
 function appendData(response) {
-
-    
     
     let length = response.length; // array length
     console.log(response);
@@ -74,7 +73,7 @@ function appendData(response) {
         let coreLen = response[i].rocket.first_stage.cores.length;
         if (coreLen) {
             for(let k = 0; k < coreLen; k++) {
-                console.log
+                // console.log();
                 if (response[i].rocket.first_stage.cores[k].land_success == true) {
                     landSuccess = true;
                     break;
@@ -82,7 +81,7 @@ function appendData(response) {
             }
         }
 
-        landSuccess =  landSuccess == null ? '' : landSuccess;
+        // landSuccess =  landSuccess == null ? '' : landSuccess;
       
         let appendHtml = `
                         <div class="col-lg-3 col-md-6 col-sm-12 mt-3 spacex-item">
@@ -126,11 +125,11 @@ $( ".launch-year-btn" ).click(function(e) {
 
     $("#lauchData").empty();
     console.log(e.target.value);
-    queryParem.launch_year = e.target.value;
+    queryParam.launch_year = e.target.value;
     $(".launch-year-btn").removeClass("active");    //remove active class
     $(e.target).addClass("active");                 // active button
-    console.log(queryParem.launchYear);
-    queryParem.offset = 0;
+    console.log(queryParam.launchYear);
+    queryParam.offset = 0;
     getData();
 
   });
@@ -141,11 +140,11 @@ $( ".launch-year-btn" ).click(function(e) {
 
     $("#lauchData").empty();
     console.log(e.target.value);
-    queryParem.launch_success = e.target.value;
+    queryParam.launch_success = e.target.value;
     $(".success-lunch-btn").removeClass("active");  // remove active class
     $(e.target).addClass("active");                 // active button
-    console.log(queryParem.launchSuccess);
-    queryParem.offset = 0;
+    console.log(queryParam.launchSuccess);
+    queryParam.offset = 0;
     getData();
   });
 
@@ -155,11 +154,11 @@ $( ".launch-year-btn" ).click(function(e) {
 
     $("#lauchData").empty();
     console.log(e.target.value);
-    queryParem.land_success = e.target.value;       
+    queryParam.land_success = e.target.value;       
     $(".success-land-btn").removeClass("active");   // remove active class
     $(e.target).addClass("active");                  // active button
-    console.log(queryParem.landSuccess);
-    queryParem.offset = 0;
+    console.log(queryParam.landSuccess);
+    queryParam.offset = 0;
     getData();
   });
 
