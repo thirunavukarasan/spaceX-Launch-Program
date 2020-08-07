@@ -6,10 +6,10 @@ module.exports = {
 
     entry: "./main.js",
 
-    // output: {
-    //     path: path.resolve(__dirname, 'dist'),
-    //     filename: "bundle.js"
-    // },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: "bundle.js"
+    },
 
     // resolve: {
     //     extensions: [".js", ".json"]
@@ -25,6 +25,11 @@ module.exports = {
             { 
                 test: /\.html?$/, 
                 use: ["html-loader"], 
+                exclude: /node_modules/ 
+            },
+            { 
+                test: /\.css?$/, 
+                use: ["css-loader"], 
                 exclude: /node_modules/ 
             }
         ]
