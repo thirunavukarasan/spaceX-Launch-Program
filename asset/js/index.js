@@ -37,7 +37,10 @@ function getData() {
     });
 }
 
-getData(); // function call
+$(document).ready(function(){
+    getData(); // function call
+})
+
 
 // function for load more data 
 function loadmore() {
@@ -62,7 +65,7 @@ function appendData(response) {
         let missinList = '';
         if(missionIdLength > 0) {
             for(let j=0; j<missionIdLength; j++) {
-                missinList += `<span class="textColor"><li>${response[i].mission_id[j]}</li></span>`
+                missinList += `<li><span class="textColor">${response[i].mission_id[j]}</span></li>`
             }
         }
         
